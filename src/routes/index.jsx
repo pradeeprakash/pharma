@@ -25,13 +25,13 @@ class Routes extends Component {
     return (
       <Router>
          <Switch>
-         <Route exact path="/">
+         <Route exact path="/pharma">
           <Redirect to='/dashboard' />
           </Route>
           <Route path="/">
           <Drawer />
           </Route>
-          <Route exact path="/stock">
+          <Route exact path="pharma/stock">
             <Drawer />
           </Route>
         </Switch>

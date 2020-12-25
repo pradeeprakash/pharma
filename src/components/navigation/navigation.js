@@ -29,7 +29,7 @@ import PatientList from '../../models/patient';
 import Stock from '../../models/stock';
 import Purchase from '../../models/purchase';
 import Dashboard from '../../models/dashboard';
-
+import Dealer from '../../models/dealer';
 
 
 import { sideBarData } from '../../services/constants';
@@ -284,16 +284,19 @@ function Navigation(props) {
         </nav>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact path='/stock'>
+          <Route exact path='/pharma/stock'>
             <Stock />
           </Route>
-          <Route exact path='/purchase'>
+          <Route exact path='/pharma/purchase'>
           <Purchase />
           </Route>
-          <Route exact path='/patient'>
+          <Route exact path='/pharma/patient'>
             <PatientList />
           </Route>
-          <Route exact path='/dashboard'>
+          <Route exact path='/pharma/dealer'>
+            <Dealer />
+          </Route>
+          <Route exact path='/pharma/dashboard'>
             <Dashboard />
           </Route>
         </main>

@@ -4,31 +4,37 @@ export const sideBarData = [
   {
     text: 'Dashboard',
     icon: 'dashboard',
-    url: 'dashboard',
+    url: 'pharma/dashboard',
     active: false,
   },
+  // {
+  //   text: 'Inventory',
+  //   icon: 'shopping_basket',
+  //   url: 'pharma/purchase',
+  //   active: false,
+  // },
   {
     text: 'Stock',
     icon: 'show_chart',
-    url: 'stock',
+    url: 'pharma/stock',
     active: false,
   },
   {
-    text: 'Patient',
+    text: 'Customer',
     icon: 'person',
-    url: 'patient',
+    url: 'pharma/patient',
     active: false,
   },
   {
-    text: 'Purchase',
-    icon: 'shopping_basket',
-    url: 'purchase',
+    text: 'Dealer',
+    icon: 'group_add',
+    url: 'pharma/dealer',
     active: false,
-  },
-  {
-    text: 'Statistics',
-    icon: 'timeline',
-    url: 'chart',
-    active: false,
-  },
+  }
+  // {
+  //   text: 'Statistics',
+  //   icon: 'timeline',
+  //   url: 'pharma/chart',
+  //   active: false,
+  // },
 ];

@@ -1,24 +1,25 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import EachItemEntry from './eachItemEntry';
-function CreateStock() {
+
+function EachItemEntry({ title }) {
     const { useState } = React;
 
     const [columns, setColumns] = useState([
-        { title: 'S.No', field: 'sno' },
-        // { title: 'Product Code', field: 'productCode'},
-        { title: 'Product Name', field: 'productName' },
-        // { title: 'Packing Type', field: 'packingType' },
-        // { title: 'Packing Volume', field: 'packingVolume' },
+        // { title: 'S.No', field: 'sno' },
+        { title: 'Product Code', field: 'productCode' },
+        { title: 'Stocky', field: 'stocky' ,lookup:{1:'GSK',2:'Deepa Medical'}},
+        // { title: 'Product Name', field: 'productName' },
+        { title: 'Packing Type', field: 'packingType' },
+        { title: 'Packing Volume', field: 'packingVolume' },
         { title: 'Quantity', field: 'quantity' },
-        // {
-        //     title: 'PTR',
-        //     field: 'ptr',
-        // },
-        // {
-        //     title: 'PTR GST%',
-        //     field: 'ptrGST',
-        // },
+        {
+            title: 'PTR',
+            field: 'ptr',
+        },
+        {
+            title: 'PTR GST%',
+            field: 'ptrGST',
+        },
         {
             title: 'Total PTR',
             field: 'totalPTR',
@@ -38,18 +39,13 @@ function CreateStock() {
     ]);
 
     const [data, setData] = useState([
-        { sno: "1", productCode: "1001", productName: 'Cold 5mg tablet', packingType: "ml", packingVolume: "50", quantity: "86", ptr: "100", ptrGST: "5%", totalPTR: "105", mrp: "205", discount: "10%", sellingPrice: "180" },
-        // { productName: 'Cold 5mg tablet', description: 'Prakash', expireDate:"", unit: 9976322613, rate: 120,mrp:500,taxPercentage:'5%', taxAmount:'50'},
-        // { productName: 'Fever  Tablet', description: 'Vasakam', expireDate:"", unit: 993826778, rate: 120, mrp:500,taxPercentage:'5%', taxAmount:'50' },
-        // { productName: 'Cold 5mg tablet', description: 'Prakash', expireDate:"", unit: 9976322613, rate: 120,mrp:500,taxPercentage:'5%', taxAmount:'50'},
-        // { productName: 'Fever  Tablet', description: 'Vasakam', expireDate:"", unit: 993826778, rate: 120, mrp:500,taxPercentage:'5%', taxAmount:'50' },
-        // { productName: 'Cold 5mg tablet', description: 'Prakash', expireDate:"", unit: 9976322613, rate: 120,mrp:500,taxPercentage:'5%', taxAmount:'50'},
+        { sno: "1", productCode: "1001", stocky:1,productName: 'Cold 5mg tablet', packingType: "ml", packingVolume: "50", quantity: "86", ptr: "100", ptrGST: "5%", totalPTR: "105", mrp: "205", discount: "10%", sellingPrice: "180" },
     ]);
 
     return (
         <div style={{ margin: "24px" }}>
             <MaterialTable
-                title="Stock List"
+                title={title}
                 columns={columns}
                 data={data}
                 options={{
@@ -57,19 +53,6 @@ function CreateStock() {
                     // filtering: true,
                     // grouping: false
                 }}
-                detailPanel={[
-                    {
-                        tooltip: 'Show Name',
-                        render: rowData => {
-                            return (
-                                <React.Fragment>
-                                    {/* <Button variant="contained">Default</Button> */}
-                                    <EachItemEntry title={rowData.productName} />
-                                </React.Fragment>
-                            )
-                        },
-                    },
-                ]}
                 editable={{
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
@@ -107,4 +90,4 @@ function CreateStock() {
     )
 }
 
-export default CreateStock;
+export default EachItemEntry;

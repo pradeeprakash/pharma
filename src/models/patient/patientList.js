@@ -1,41 +1,42 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import PatientPurchase from './patientPurchase';
-function PatientList() {
+function PatientList({type}) {
     const { useState } = React;
 
     const [columns, setColumns] = useState([
         { title: 'Name', field: 'name' },
-        { title: 'Surname', field: 'surname', initialEditValue: 'initial edit value' },
-        { title: 'Phone Number', field: 'phone', type: 'numeric' },
+        { title: 'Phone Number', field: 'phoneNumber', type: 'numeric' },
         {
-            title: 'City',
-            field: 'city',
-            lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+            title: 'Address',
+            field: 'address',
+            lookup: { 1: 'kolakkaranor', 2: 'Umareddiyur',3:'Ammapettai',4:'Nerinjipettai',5:'Poolambatti',6:'Mettur',7:'Boodapadi',8:'Guruvareddiyur',9:'Singampettai',10:'Chittar',11:'Bhavani' },
         },
         {
-            title: 'City',
-            field: 'city',
+            title: 'Coins',
+            field: 'coins',
         },
         {
-            title: 'City',
-            field: 'city',
+            title: 'Repeat',
+            field: 'repeatType',
+            lookup:{1:'Yes',2:'No'}
         },
         {
-            title: 'City',
-            field: 'city',
+            title: 'Repeat Date',
+            field: 'repeatDate',
+            type:'date'
         },
     ]);
 
     const [data, setData] = useState([
-        { name: 'Pradeep', surname: 'Prakash', phone: 9976322613, city: 'Kolakaranoor' },
-        { name: 'Mani', surname: 'Vasakam', phone: 993826778, city: 34 },
+        { name: type=="general" ? '' :'Pradeep', phoneNumber: 9976322613, address: 1 , coins:'10',repeatType:1,repeatDate:''},
+        { name: type=="general" ? '' :'Mani', phoneNumber: 993826778, address: 2 , coins:'5',repeatType:1,repeatDate:''},
     ]);
 
     return (
-        <div style={{margin:"24px"}}>
+        <div>
             <MaterialTable
-                title="Patient List"
+                title="Customer List"
                 columns={columns}
                 data={data}
                 options={{

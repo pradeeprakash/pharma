@@ -1,50 +1,57 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-function SimpleAction() {
+import Dealer from './dealer';
+function DealerList() {
     const { useState } = React;
 
-    function t (ch){
-debugger
-    }
-
     const [columns, setColumns] = useState([
-        { title: 'Name', field: 'name' },
-        { title: 'Surname', field: 'surname', initialEditValue: 'initial edit value' },
-        { title: 'Phone Number', field: 'phone', type: 'numeric' },
+        { title: 'Dealer Name', field: 'dealerName'},
+        { title: 'Address', field: 'address' },
+        { title: 'Phone Number', field: 'phoneNumber'},
+        { title: 'Client Companies', field: 'clientCompanies' },
         {
-            title: 'City',
-            field: 'city',
-            lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+            title: 'Payment Method',
+            field: 'paymentMethod',
         },
         {
-            title: 'City',
-            field: 'city',
+            title: 'Last Payment',
+            field: 'lastPayment',
         },
         {
-            title: 'City',
-            field: 'city',
-        },
-        {
-            title: 'City',
-            field: 'city',
-        },
+            title: 'Credit Days',
+            field: 'creditDays',
+        }
     ]);
 
     const [data, setData] = useState([
-        { name: 'Pradeep', surname: 'Prakash', phone: 9976322613, city: 'Kolakaranoor' },
-        { name: 'Mani', surname: 'Vasakam', phone: 993826778, city: 34 },
-    ]);
+        { dealerName: 'GSK', address: 'Erode', expireDate:"", phoneNumber: 9976322613, paymentMethod: 'Card',lastPayment:'65400',creditDays:30},
+        { dealerName: 'Deepa Medical', address: 'Salem', phoneNumber: 8232382942,  paymentMethod: 'Cash',lastPayment:'34400',creditDays:60},
+         ]);
 
     return (
         <div style={{margin:"24px"}}>
             <MaterialTable
-                title="Customer List"
+                title="Dealer List"
                 columns={columns}
                 data={data}
                 options={{
-                    filtering: true,
-                    grouping: false
+                    exportButton: true
+                    // filtering: true,
+                    // grouping: false
                   }}
+                  detailPanel={[
+                    {
+                      tooltip: 'Show Name',
+                      render: rowData => {
+                        return (
+                            <React.Fragment>
+                              {/* <Button variant="contained">Default</Button> */}
+                          <Dealer title={rowData.productName} />
+                          </React.Fragment>
+                        )
+                      },
+                    },
+                  ]}
                 editable={{
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
@@ -52,11 +59,10 @@ debugger
                                 setData([...data, newData]);
 
                                 resolve();
-                            }, 1000)
+                            }, 0)
                         }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
-                            t(newData)
                             setTimeout(() => {
                                 const dataUpdate = [...data];
                                 const index = oldData.tableData.id;
@@ -64,11 +70,10 @@ debugger
                                 setData([...dataUpdate]);
 
                                 resolve();
-                            }, 1000)
+                            }, 0)
                         }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
-                            t(oldData)
                             setTimeout(() => {
                                 const dataDelete = [...data];
                                 const index = oldData.tableData.id;
@@ -76,7 +81,7 @@ debugger
                                 setData([...dataDelete]);
 
                                 resolve()
-                            }, 1000)
+                            }, 0)
                         }),
                 }}
             />
@@ -84,4 +89,4 @@ debugger
     )
 }
 
-export default SimpleAction;
+export default DealerList;
