@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useState , useEffect} from 'react';
 import MaterialTable from 'material-table';
+import { useSnackbar } from 'notistack';
 import EachItemEntry from './eachItemEntry';
-function CreateStock() {
-    const { useState } = React;
+import API from '../../api';
 
+function CreateStock() {
+    const [isLoading,setIsLoading] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
+    useEffect(()=>{
+        getStocks();
+    },[]);
+
+    const getStocks = ()=>{
+        setIsLoading(true);
+         API.get('/product/products')
+        .then(res=>{
+            setData(res.data.data);
+            console.log(res);
+            setIsLoading(false);
+        })
+        .catch(err=>{
+            setIsLoading(false);
+            console.log(err);
+        })
+    }
     const [columns, setColumns] = useState([
-        { title: 'S.No', field: 'sno' },
-        // { title: 'Product Code', field: 'productCode'},
-        { title: 'Product Name', field: 'productName' },
+        { title: 'Product Code', field: 'product_code'},
+        { title: 'Product Name', field: 'product_name' },
+        { title: 'HSN Name', field: 'hsn_name' },
         // { title: 'Packing Type', field: 'packingType' },
         // { title: 'Packing Volume', field: 'packingVolume' },
         { title: 'Quantity', field: 'quantity' },
@@ -20,7 +40,7 @@ function CreateStock() {
         //     field: 'ptrGST',
         // },
         {
-            title: 'Total PTR',
+            title: 'PTR (Include Tax)',
             field: 'totalPTR',
         },
         {
@@ -37,18 +57,50 @@ function CreateStock() {
         },
     ]);
 
-    const [data, setData] = useState([
-        { sno: "1", productCode: "1001", productName: 'Cold 5mg tablet', packingType: "ml", packingVolume: "50", quantity: "86", ptr: "100", ptrGST: "5%", totalPTR: "105", mrp: "205", discount: "10%", sellingPrice: "180" },
-        // { productName: 'Cold 5mg tablet', description: 'Prakash', expireDate:"", unit: 9976322613, rate: 120,mrp:500,taxPercentage:'5%', taxAmount:'50'},
-        // { productName: 'Fever  Tablet', description: 'Vasakam', expireDate:"", unit: 993826778, rate: 120, mrp:500,taxPercentage:'5%', taxAmount:'50' },
-        // { productName: 'Cold 5mg tablet', description: 'Prakash', expireDate:"", unit: 9976322613, rate: 120,mrp:500,taxPercentage:'5%', taxAmount:'50'},
-        // { productName: 'Fever  Tablet', description: 'Vasakam', expireDate:"", unit: 993826778, rate: 120, mrp:500,taxPercentage:'5%', taxAmount:'50' },
-        // { productName: 'Cold 5mg tablet', description: 'Prakash', expireDate:"", unit: 9976322613, rate: 120,mrp:500,taxPercentage:'5%', taxAmount:'50'},
-    ]);
+    const [data, setData] = useState([]);
+
+    const handleRowAdd = (newData, resolve,reject)=>{
+        API.post("/product/product",{data:newData})
+        .then((res)=>{
+            enqueueSnackbar('Product Added',{ variant: 'success',});
+            resolve();
+            getStocks();
+        })
+        .catch((err)=>{
+            resolve();
+            console.log(err,handleRowAdd);
+        })
+    }
+
+    const handleRowUpdate = (newData, resolve,reject)=>{
+        API.post("/product/product",{data:newData})
+        .then((res)=>{
+            getStocks();
+            resolve();
+        })
+        .catch((err)=>{
+            resolve();
+            console.log(err,handleRowAdd);
+        })
+    }
+
+    const handleRowDelete = (newData, resolve,reject)=>{
+        API.delete(`/product/product/${newData.id}`)
+        .then((res)=>{
+            enqueueSnackbar('Product Deleted',{ variant: 'error',});
+            getStocks();
+            resolve();
+        })
+        .catch((err)=>{
+            resolve();
+            console.log(err,handleRowAdd);
+        })
+    }
 
     return (
         <div style={{ margin: "24px" }}>
             <MaterialTable
+                isLoading={isLoading}
                 title="Stock List"
                 columns={columns}
                 data={data}
@@ -73,33 +125,15 @@ function CreateStock() {
                 editable={{
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                setData([...data, newData]);
-
-                                resolve();
-                            }, 0)
+                            handleRowAdd(newData, resolve,reject);
                         }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                const dataUpdate = [...data];
-                                const index = oldData.tableData.id;
-                                dataUpdate[index] = newData;
-                                setData([...dataUpdate]);
-
-                                resolve();
-                            }, 0)
+                            handleRowUpdate(newData, resolve,reject);
                         }),
-                    onRowDelete: oldData =>
+                    onRowDelete: data =>
                         new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                const dataDelete = [...data];
-                                const index = oldData.tableData.id;
-                                dataDelete.splice(index, 1);
-                                setData([...dataDelete]);
-
-                                resolve()
-                            }, 0)
+                            handleRowDelete(data, resolve,reject);
                         }),
                 }}
             />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +14,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import API from '../../api';
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -42,6 +44,7 @@ export default function FullScreenDialog({title}) {
     setOpen(false);
   };
 
+
   return (
     <div>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -67,13 +70,21 @@ export default function FullScreenDialog({title}) {
 }
 
 function EachItemEntry({ title }) {
-    const { useState } = React;
 
+    useEffect(()=>{
+      API.get('/productDetails/products')
+      .then(res=>{
+          console.log(res);
+      })
+      .catch(err=>{
+          console.log(err);
+      })
+  });
     const [columns, setColumns] = useState([
         // { title: 'S.No', field: 'sno' },
         { title: 'Product Code', field: 'productCode' },
-        { title: 'Expire Date', field: 'expireDate',type:'date' },
-        { title: 'Batch No', field: 'batchNo' },
+        { title: 'Expire Date', field: 'expire_date',type:'date' },
+        { title: 'Batch No', field: 'batch_no' },
         { title: 'Product Code', field: 'productCode' },
         { title: 'Stocky', field: 'stocky' ,lookup:{1:'GSK',2:'Deepa Medical'}},
         // { title: 'Product Name', field: 'productName' },
@@ -86,7 +97,7 @@ function EachItemEntry({ title }) {
         },
         {
             title: 'PTR GST%',
-            field: 'ptrGST',
+            field: 'gst',
         },
         {
             title: 'Total PTR',
@@ -110,6 +121,18 @@ function EachItemEntry({ title }) {
         { sno: "1", productCode: "1001",expireDate:'',batchNo:"4", stocky:1,productName: 'Cold 5mg tablet', packingType: "ml", packingVolume: "50", quantity: "86", ptr: "100", ptrGST: "5%", totalPTR: "105", mrp: "205", discount: "10%", sellingPrice: "180" },
     ]);
 
+  const handleRowAdd = (newData, resolve,reject)=>{
+    API.post("/productDetails/product",{data:newData})
+    .then((res)=>{
+        console.log(res,"handleRowAdd");
+        resolve();
+    })
+    .catch((err)=>{
+        resolve();
+        console.log(err,handleRowAdd);
+    })
+}
+
     return (
         <div style={{ margin: "24px" }}>
             <MaterialTable
@@ -122,14 +145,10 @@ function EachItemEntry({ title }) {
                     // grouping: false
                 }}
                 editable={{
-                    onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                setData([...data, newData]);
-
-                                resolve();
-                            }, 0)
-                        }),
+                  onRowAdd: newData =>
+                  new Promise((resolve, reject) => {
+                      handleRowAdd(newData, resolve,reject);
+                  }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
