@@ -17,7 +17,7 @@ module.exports = {
       repo : 'git@github.com:pradeeprakash/pharma.git',
       path : '/home/guhanpharmacy/landing-page',
       'pre-deploy-local': '',
-      'post-deploy' : 'npm install && npm run build && sudo rm -rf /var/www/html/; sudo cp -r dist /var/www/html',
+      'post-deploy' : 'npm install && npm run build && sudo rm -rf /var/www/html/; sudo cp -r build /var/www/html',
       'pre-setup': ''
     }
   }
