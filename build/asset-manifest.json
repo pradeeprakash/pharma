@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/pharma/static/css/main.d8e4782f.chunk.css",
+    "main.js": "/pharma/static/js/main.f881949b.chunk.js",
+    "main.js.map": "/pharma/static/js/main.f881949b.chunk.js.map",
+    "runtime-main.js": "/pharma/static/js/runtime-main.e02f54cf.js",
+    "runtime-main.js.map": "/pharma/static/js/runtime-main.e02f54cf.js.map",
+    "static/js/2.4342094e.chunk.js": "/pharma/static/js/2.4342094e.chunk.js",
+    "static/js/2.4342094e.chunk.js.map": "/pharma/static/js/2.4342094e.chunk.js.map",
+    "static/js/3.8df39910.chunk.js": "/pharma/static/js/3.8df39910.chunk.js",
+    "static/js/3.8df39910.chunk.js.map": "/pharma/static/js/3.8df39910.chunk.js.map",
+    "static/js/4.38834451.chunk.js": "/pharma/static/js/4.38834451.chunk.js",
+    "static/js/4.38834451.chunk.js.map": "/pharma/static/js/4.38834451.chunk.js.map",
+    "static/js/5.00af978c.chunk.js": "/pharma/static/js/5.00af978c.chunk.js",
+    "static/js/5.00af978c.chunk.js.map": "/pharma/static/js/5.00af978c.chunk.js.map",
+    "static/js/6.0e5bb59d.chunk.js": "/pharma/static/js/6.0e5bb59d.chunk.js",
+    "static/js/6.0e5bb59d.chunk.js.map": "/pharma/static/js/6.0e5bb59d.chunk.js.map",
+    "index.html": "/pharma/index.html",
+    "static/css/main.d8e4782f.chunk.css.map": "/pharma/static/css/main.d8e4782f.chunk.css.map",
+    "static/js/2.4342094e.chunk.js.LICENSE.txt": "/pharma/static/js/2.4342094e.chunk.js.LICENSE.txt",
+    "static/js/3.8df39910.chunk.js.LICENSE.txt": "/pharma/static/js/3.8df39910.chunk.js.LICENSE.txt",
+    "static/js/4.38834451.chunk.js.LICENSE.txt": "/pharma/static/js/4.38834451.chunk.js.LICENSE.txt",
+    "static/js/5.00af978c.chunk.js.LICENSE.txt": "/pharma/static/js/5.00af978c.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/pharma/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e02f54cf.js",
+    "static/js/2.4342094e.chunk.js",
+    "static/css/main.d8e4782f.chunk.css",
+    "static/js/main.f881949b.chunk.js"
+  ]
+}
